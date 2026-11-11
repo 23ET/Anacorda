@@ -1,0 +1,52 @@
+<link rel="stylesheet" href="style.css"> <!-- link to the style.css -->
+
+<!-- I create the game container to center the screen and the border of the game-->
+<div class="game-container">
+  <h1 id="gameTitle">ANACHORDA</h1>
+<!-- fixed title-->
+<div id="staticHeader" class="fixed-header hidden">
+    <div class="header-top">
+      <!-- decoration left-->
+      <svg class="pixel-deco" width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M0 24H6V18H12V12H18V6H24V0" stroke="yellow" stroke-width="3" fill="none"/>
+      </svg>
+
+      <span class="header-title">ANACHORDA</span>
+
+      <!-- Decoration right-->
+      <svg class="pixel-deco" width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M24 24H18V18H12V12H6V6H0V0" stroke="yellow" stroke-width="3" fill="none"/>
+      </svg>
+    </div>
+    <div class="header-line"></div>
+   <!-- Level info: shown only on the play screen -->
+    <div id="levelInfo" class="level-info hidden">
+      LVL <span id="levelVal">1</span> : <span id="levelKey">Gm</span>
+    </div>
+  </div>
+<!--<span> isolate the two parts that change: the level's number and  name, JS modifies only those parts, without rewriting the entire sentence.--!>
+  <!-- hidden part when the game start-->
+  <!-- scoreVal show your points -->
+  <div class="score hidden" id="scoreContainer">
+    Score: <span id="scoreVal">0</span>
+  </div>
+<!-- canvas it's the element were the games is codificated -->
+  <canvas id="snakeBoard" width="400" height="400"></canvas>
+
+  <!-- Menu -->
+<div id="mainMenu" class="menu-screen hidden">
+    <button class="menu-btn btn-yellow" id="btnStart">NEW GAME</button>
+    <button class="menu-btn btn-yellow" id="btnHighScore">HIGH SCORE</button>
+  </div>
+  
+  <!-- choose your game -->
+<div id="modeMenu" class="menu-screen hidden">
+    <button class="menu-btn btn-green" id="btnScale">Scale Mode</button>
+    <button class="menu-btn btn-red" id="btnHarmony">Harmony Mode</button>
+    <button class="menu-btn btn-outline" id="btnPractice">Practice Mode</button>
+    <button class="back-btn" id="btnBack">← Back</button>
+  </div>
+</div>
+
+<!--Loads and executes the external JavaScript file named script.js.-->
+<script src="script.js"></script>
