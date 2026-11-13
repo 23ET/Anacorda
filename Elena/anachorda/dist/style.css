@@ -1,0 +1,275 @@
+/*I downloaded some fonts, uploaded them to a public GitHub repository, and created a link so they can be used*/
+@font-face {
+  font-family: 'CSGoals';
+  src: url('https://cdn.jsdelivr.net/gh/23ET/Anacorda@main/CSGoals-Regular_demo.otf') format('opentype');
+ font-weight: normal;
+font-style: normal;
+font-display: swap;/* Show a fallback font */
+}
+
+@font-face {
+  font-family: 'GamePaused';
+  src: url('https://cdn.jsdelivr.net/gh/23ET/Anacorda@main/Game%20Paused%20DEMO.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==========================================
+   2.  GLOBAL SETTINGS AND LAYOUT
+   ========================================== */
+
+body {
+  background-color: #1a1a1a; /*dark background*/
+  color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /*centers the game horizontally and vertically  */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden; /* Avoid scroll bars during animations or bounce effects */
+  cursor: pointer;/* Clickable (starts the game) */
+}
+
+.game-container {
+  text-align: center;
+  position: relative; /*so absolute elements inside it (title, header, menu) are positioned relative to it.*/
+  display: inline-block; 
+}
+
+/* Retro Title: ANACHORDA */
+h1 {
+  color: yellow;
+  font-family: 'CSGoals', monospace;
+  /*monospace is the fallback font if loading fails.*/
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  margin: 0px;
+  user-select: none; /* The text cannot be selected */
+  white-space: nowrap;   /* Never wraps to the next line */
+  cursor: pointer;/* Clickable (starts the game) */
+  z-index: 10;
+}
+
+/* ==========================================
+   STATIC HEADER
+   ========================================== */
+.fixed-header {
+  position: absolute;
+  top: 15px;/*put the title on the top*/
+  left: 50%; /*center the title*/
+  transform: translateX(-50%);/*center the title*/
+  z-index: 15;
+  width: 85%;
+  display: flex; /*Enables the Flexbox layout model on the container, elements become can be easily aligned, distributed, and resized.
+*/
+  flex-direction: column;/*Sets the main axis to vertical*/
+  align-items: center;/*Aligns the elements along the cross axis,in this case, the horizontal axis*/
+}
+
+.header-top { /*aligns the decoration, title, and decoration*/
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.header-title {
+  color: yellow;
+  font-family: 'CSGoals', monospace;
+  font-size: 32px;
+  user-select: none;/*Prevents the user from highlighting or selecting text*/
+  letter-spacing: 2px;
+}
+
+/* Pixelated stepped decorations on the sides */
+.pixel-deco {
+  filter: drop-shadow(0 0 4px rgba(255, 255, 0, 0.6)); /* yellow glow */
+}
+
+/* Yellow line below the title */
+.header-line {
+  width: 100%;
+  height: 2px;
+  background-color: yellow;
+  margin-top: 4px;
+  box-shadow: 0 0 8px rgba(255, 255, 0, 0.6);
+}
+
+/* ==========================================
+   3. ANIMATIONS AND UTILITIES
+   ========================================== */
+
+.pixel-dissolve {
+  animation: pixelFade 0.7s forwards ease-in-out;
+}
+/* defines a custom animation,the `@keyframes` rule  describe an element's gradual transition through three keyframes (start, middle, and end)*/
+@keyframes pixelFade {
+  0% {/*start*/
+    opacity: 1; /*The element is fully visible.*/
+    transform: scale(1);/* Maintains its original dimensions */
+    filter: contrast(100%) blur(0px);/*Standard contrast and no blur*/
+  }
+  50% {/*middle*/
+    opacity: 0.8;
+    transform: scale(1.1); /* +10%*/
+    filter: contrast(300%) blur(4px);
+  }
+  100% { /*end*/
+    opacity: 0;/*invisible*/
+    transform: scale(1.4);/* +40%*/
+    filter: contrast(600%) blur(12px);
+    visibility: hidden; /*the element is completaly hidden*/
+  }
+}
+
+/*  Universal class for hiding inactive elements */
+.hidden {
+  display: none !important;/*. The !important property overrides any other display property*/
+}
+
+/* ==========================================
+   4. SCORE BOARD & CANVAS
+   ========================================== */
+/* Score box at the bottom of the play screen, inside the canvas frame */
+.score {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 14px;
+  margin: 0;
+  padding: 8px 0;
+  border: 2px solid #00ffcc;
+  background-color: #111;
+  font-family: 'GamePaused', monospace;
+  font-size: 22px;
+  color: #00ffcc;
+  text-transform: uppercase;   /* "Score:" -> "SCORE:" */
+  z-index: 15;
+}
+
+canvas {
+  display: block;   /* removes the small gap under the canvas, so the score box sits exactly on the frame */
+  border: 4px solid #00ffcc;
+  background-color: #111;
+  box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
+}
+
+/* "LVL 1 : Gm" line under the header */
+.level-info {
+  margin-top: 10px;
+  font-family: 'GamePaused', monospace;
+  font-size: 20px;
+  color: #00ffcc;
+  user-select: none; /*you can't select the text*/
+}
+
+/* ==========================================
+   5. MENU 
+   ========================================== */
+/* Centered overlay for any menu screen above the canvas */
+.menu-screen {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20; /* Keeps the buttons above the canvas */
+  display: flex;
+  flex-direction: column; /* buttons stacked one below the other */
+  gap: 15px;
+  align-items: center;
+  width: max-content;
+}
+
+/* Common Base for Pixel-Art Buttons */
+.menu-btn {
+  font-family: 'GamePaused', monospace;
+  font-size: 22px;
+  background-color: #111; /* Dark background to cover the underlying canvas */
+  padding: 10px 24px;
+  min-width: 200px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* ------------------------------------------
+   Specific styles for buttons 
+   ------------------------------------------ */
+
+/*  NEW GAME / Default Yellow */
+.btn-yellow {
+  color: yellow;
+  border: 2px solid yellow;
+  box-shadow: 0 0 10px rgba(255, 255, 0, 0.3);
+}
+
+.btn-yellow:hover /*it is triggered when the user hovers the mouse cursor over the button, hover rule changes the button's style*/ {
+  background-color: yellow;
+  color: #111;
+  box-shadow: 0 0 20px rgba(255, 255, 0, 0.7);
+}
+
+/* Scale Mode (green ) */
+.btn-green {
+  color: #00ffaa;
+  border: 2px solid #00ffaa;
+  box-shadow: 0 0 10px rgba(0, 255, 170, 0.3);
+}
+
+.btn-green:hover {
+  background-color: #00ffaa;
+  color: #111;
+  box-shadow: 0 0 20px rgba(0, 255, 170, 0.7);
+}
+
+/* Harmony Mode Red  */
+.btn-red {
+  color: #ff0055;
+  border: 2px solid #ff0055;
+  box-shadow: 0 0 10px rgba(255, 0, 85, 0.3);
+}
+
+.btn-red:hover {
+  background-color: #ff0055;
+  color: #111;
+  box-shadow: 0 0 20px rgba(255, 0, 85, 0.7);
+}
+
+/* Practice Mode (white / Outline) */
+.btn-outline {
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.btn-outline:hover {
+  background-color: #ffffff;
+  color: #111;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+}
+
+/*  "Back"  */
+.back-btn {
+  font-family: 'GamePaused', monospace;
+  font-size: 16px;
+  background: transparent;
+  color: #888;
+  border: none;
+  cursor: pointer;
+  margin-top: 5px;
+  transition: color 0.2s ease;
+}
+
+.back-btn:hover {
+  color: #fff;
+}
+
+/* Accessibility: Highlights the buttons used with the keyboard*/
+.menu-btn:focus-visible,
+.back-btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
