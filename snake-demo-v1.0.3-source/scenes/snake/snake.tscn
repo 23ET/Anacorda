@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bub57f3vjk2wg"]
+
+[ext_resource type="Script" path="res://scenes/snake/snake.gd" id="1_dw8mq"]
+[ext_resource type="PackedScene" uid="uid://dqwslt34frefn" path="res://scenes/snake/head/head.tscn" id="2_sup8q"]
+
+[node name="Snake" type="Node2D"]
+position = Vector2(270, 139)
+script = ExtResource("1_dw8mq")
+
+[node name="BodyPartContainer" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Head" parent="." instance=ExtResource("2_sup8q")]
+unique_name_in_owner = true
