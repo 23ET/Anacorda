@@ -214,13 +214,13 @@ canvas {
 
 /* Scale Mode (green ) */
 .btn-green {
-  color: #00ffaa;
-  border: 2px solid #00ffaa;
+  color: #39FF14;
+  border: 2px solid #39FF14;
   box-shadow: 0 0 10px rgba(0, 255, 170, 0.3);
 }
 
 .btn-green:hover {
-  background-color: #00ffaa;
+  background-color: #39FF14;
   color: #111;
   box-shadow: 0 0 20px rgba(0, 255, 170, 0.7);
 }
@@ -272,4 +272,69 @@ canvas {
 .back-btn:focus-visible {
   outline: 2px solid #fff;
   outline-offset: 3px;
+}
+
+/* ==========================================
+   6. CONTROLS SCREEN (before the countdown)
+   ========================================== */
+
+/* Instructions text at the top */
+.start-subtitle {
+  margin: 0;
+  font-family: 'GamePaused', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  letter-spacing: 1px;
+  color: #888;
+  text-align: center;
+  user-select: none;             /* the text cannot be selected with the mouse */
+}
+
+/* Arrow block: a column of rows, all as wide as the middle row */
+.arrow-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;          /* every row takes the full width of the block */
+}
+
+.arrow-row {
+  display: flex;
+  justify-content: center;       /* center the arrow (or arrows) inside the row */
+}
+
+.arrow-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Arrow image: the SVG is a right-pointing arrow */
+.arrow-img {
+  width: 30px;
+  height: 30px;
+  image-rendering: pixelated;                              /* keep pixel-art edges sharp */
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.5));   /* small glow */
+  /* filter: invert(1);  <- uncomment if the arrow is dark and not visible on the black background */
+}
+
+/* The other directions are the same image, rotated */
+.arrow-up    { transform: rotate(-90deg); }   /* points up */
+.arrow-left  { transform: rotate(180deg); }   /* points left */
+.arrow-down  { transform: rotate(90deg); }    /* points down */
+/* .arrow-right is not needed: the image already points right */
+
+/* Labels under each row (UP, LEFT RIGHT, DOWN) */
+.arrow-label {
+  font-family: 'GamePaused', monospace;
+  font-size: 12px;
+  color: #aaa;
+  text-align: center;
+  margin: 3px 0 10px;
+  user-select: none;
+}
+
+/* "LEFT" on the left and "RIGHT" on the right, under their arrows */
+.arrow-left-right {
+  display: flex;
+  justify-content: space-between;
 }

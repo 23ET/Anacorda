@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dqwslt34frefn"]
+
+[ext_resource type="Script" path="res://scenes/snake/head/head.gd" id="1_1fpxc"]
+[ext_resource type="Texture2D" uid="uid://c8dqkmirgafbw" path="res://assets/head.png" id="1_lfpdd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7gclc"]
+radius = 11.0
+
+[node name="Head" type="CharacterBody2D" groups=["Head"]]
+script = ExtResource("1_1fpxc")
+
+[node name="Head" type="Sprite2D" parent="."]
+texture = ExtResource("1_lfpdd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(23, 0)
+shape = SubResource("CircleShape2D_7gclc")

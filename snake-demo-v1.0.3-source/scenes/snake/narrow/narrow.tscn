@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b15gdlg6y7gah"]
+
+[ext_resource type="Texture2D" uid="uid://d2uw3iyo3eas7" path="res://assets/narrow.png" id="1_2t2sb"]
+
+[node name="Narrow" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_2t2sb")
